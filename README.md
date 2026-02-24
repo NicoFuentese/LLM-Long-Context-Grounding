@@ -17,6 +17,41 @@ notebooklm_clone/
 
 ## Correr la aplicacion
 
-```powershell
-docker run -p 8501:8501 --env-file .env mi-app-notebooklm
+En la carpeta raiz del proyecto (Sin utilizar docker-compose):
+
+1. Contruir la imagen
+```
+docker build -t LLM-LONG-CONTEXT-GROUNDING .
+```
+
+2. Run al Contenedor e inyectar credenciales .env (en carpeta raiz):
+```
+docker run -p 8501:8501 --env-file .env LLM-LONG-CONTEXT-GROUNDING
+```
+
+3. Abrir el navegador e ir a:
+```
+http://localhost:8501
+```
+
+Con docker-compose:
+
+1. Iniciar la aplicacion (contruir imagen y levantar contenedor):
+```
+docker compose up -d
+```
+
+2. Apagar la maquina:
+```
+docker compose down
+```
+
+3. Cuando hay error en el codigo, ver quien se conecta a la app, etc. Mostrar los logs
+```
+docker compose logs -f
+```
+
+4. Si modificamos el dockerfile debemos recontruir el contenedor o instalemos nuevas librerias:
+```
+docker compose build
 ```

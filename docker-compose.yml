@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  LLM-LONG-CONTEXT-GROUNDING:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: claude-long-context-app
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    restart: unless-stopped
