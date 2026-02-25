@@ -1,7 +1,5 @@
-version: '3.8'
-
 services:
-  LLM-LONG-CONTEXT-GROUNDING:
+  llm-long-content-grounding:
     build: 
       context: .
       dockerfile: Dockerfile

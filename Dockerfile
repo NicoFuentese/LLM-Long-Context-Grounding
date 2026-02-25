@@ -1,5 +1,5 @@
 #imagen base
-FROM python:3.13-slim
+FROM python:3.11-slim
 
 # Evitar escritura de bytecodes y forzar logs en tiempo real
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     libmupdf-dev \
     && rm -rf /var/lib/apt/lists/*
 
+#Directorio donde ocurre todo
 WORKDIR /app
 
 # Instalar dependencias de Python
@@ -22,4 +23,4 @@ COPY . .
 
 EXPOSE 8501
 
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0". "--server.maxUploadSize=1000"]

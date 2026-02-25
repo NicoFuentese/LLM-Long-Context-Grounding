@@ -1,7 +1,4 @@
-fitz
-re
 boto3
-json
 streamlit
 PyMuPDF
 python-dotenv
