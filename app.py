@@ -1,5 +1,5 @@
 import streamlit as st
-from src.document_processor import build_xml_context
+from src.document_processor import build_xml_context_parallel
 from src.bedrock_client import invoke_claude
 
 st.set_page_config(page_title="ChatBot Long-Context", layout="wide", page_icon="📚")
@@ -24,11 +24,18 @@ with st.sidebar:
     
     if st.button("Procesar y Cargar a Memoria"):
         if uploaded_files:
-            with st.spinner("Extrayendo texto y construyendo estructura XML..."):
-                st.session_state.xml_context = build_xml_context(uploaded_files)
-                # Limpiamos el historial de chat si se cargan nuevos documentos
-                st.session_state.messages = [] 
-            st.success("¡Documentos listos en memoria!")
+            # Creamos un placeholder visual para la barra de progreso
+            progress_text = "Preparando procesamiento en paralelo..."
+            my_bar = st.progress(0, text=progress_text)
+            
+            # Pasamos la barra a la función
+            st.session_state.xml_context = build_xml_context_parallel(uploaded_files, progress_bar=my_bar)
+            
+            # Limpiamos el historial de chat si se cargan nuevos documentos
+            st.session_state.messages = [] 
+            
+            my_bar.empty() # Borramos la barra al terminar
+            st.success(f"¡{len(uploaded_files)} documentos indexados y listos en memoria!")
         else:
             st.warning("Debes subir al menos un archivo.")
 

@@ -53,5 +53,5 @@ docker compose logs -f
 
 4. Si modificamos el dockerfile debemos recontruir el contenedor o instalemos nuevas librerias:
 ```
-docker compose build
+docker compose build --no-cache
 ```
